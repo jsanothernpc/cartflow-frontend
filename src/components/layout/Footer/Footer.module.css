@@ -1,0 +1,157 @@
+.footer {
+  margin-top: auto;
+  background: #111827;
+  color: #d1d5db;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 56px 24px 40px;
+}
+
+.brandSection,
+.linkSection,
+.contactSection {
+  min-width: 0;
+}
+
+.brand {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.description {
+  max-width: 330px;
+  margin: 16px 0 22px;
+  color: #9ca3af;
+  line-height: 1.65;
+}
+
+.heading {
+  margin: 0 0 18px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.linkList {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link,
+.socialLink {
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.link:hover,
+.socialLink:hover {
+  color: #ffffff;
+}
+
+.link:focus-visible,
+.socialLink:focus-visible,
+.brand:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+.contactDetails {
+  display: grid;
+  gap: 12px;
+  color: #9ca3af;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.contactDetails p {
+  margin: 0;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 10px;
+}
+
+.socialLink {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #374151;
+  border-radius: 50%;
+  font-size: 0.95rem;
+}
+
+.socialLink:hover {
+  border-color: #60a5fa;
+  background: #1f2937;
+  transform: translateY(-2px);
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 22px 24px;
+  border-top: 1px solid #374151;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.bottomBar p {
+  margin: 0;
+}
+
+.legalLinks {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 760px) {
+  .content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px 28px;
+    padding: 44px 20px 32px;
+  }
+
+  .brandSection {
+    grid-column: 1 / -1;
+  }
+
+  .bottomBar {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .brandSection {
+    grid-column: auto;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

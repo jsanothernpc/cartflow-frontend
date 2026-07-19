@@ -1,0 +1,149 @@
+.section {
+  padding: 88px 0;
+  background: var(--background);
+}
+
+.container {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.heading {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  letter-spacing: -0.04em;
+}
+
+.heading > p:last-child {
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 8px 20px var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 36px var(--shadow);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 240px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .productImage {
+  transform: scale(1.05);
+}
+
+.details {
+  padding: 18px;
+}
+
+.category {
+  margin: 0 0 8px;
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.details h3 {
+  margin: 0 0 12px;
+  color: var(--text);
+  font-size: 1.1rem;
+  min-height: 48px;
+}
+
+.productMeta {
+  margin-bottom: 18px;
+}
+
+.productMeta strong {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.addButton {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.addButton:hover {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .imageContainer {
+    height: 220px;
+  }
+}
