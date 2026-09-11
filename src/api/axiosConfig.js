@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosConfig = axios.create({
-  baseURL: "https://cartflow-backend-hr70.onrender.com",
+  baseURL: "/api",
   headers: {
     "Content-Type": "application/json",
   },
