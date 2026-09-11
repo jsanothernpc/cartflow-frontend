@@ -1,6 +1,6 @@
 # CartFlow - E-Commerce Frontend
 
-CartFlow is a full-stack e-commerce application that provides users with a complete online shopping experience, including product browsing, authentication, cart management, checkout, Razorpay test payments, order confirmation emails, and an AI-powered chatbot.
+CartFlow is a full-stack e-commerce application that provides users with a complete online shopping experience, including user authentication, product browsing, cart management, checkout, Razorpay test payments, order confirmation emails, and an AI-powered shopping chatbot.
 
 This repository contains the **React frontend** of the CartFlow application.
 
@@ -9,19 +9,20 @@ This repository contains the **React frontend** of the CartFlow application.
 🌐 **Live Application:**  
 https://avenue-von-blond-homeless.trycloudflare.com
 
-> The live demo is hosted using a Cloudflare Quick Tunnel. The URL may change when the tunnel is recreated or restarted.
+> The live demo is hosted using a Cloudflare Quick Tunnel. The URL may change if the tunnel is recreated or restarted.
 
 ## Related Repository
 
 🔗 **Backend Repository:**  
-Add your backend GitHub repository link here.
+https://github.com/jsanothernpc/cartflow-backend
 
 ---
 
 ## Features
 
 - User registration and login
-- Product listing and product browsing
+- User authentication
+- Product listing and browsing
 - Product search and filtering
 - Product details
 - Add products to cart
@@ -33,7 +34,7 @@ Add your backend GitHub repository link here.
 - Email confirmation after successful payment
 - AI-powered shopping chatbot
 - Responsive user interface
-- API integration with Spring Boot backend services
+- REST API integration with Spring Boot backend services
 
 ---
 
@@ -49,17 +50,17 @@ Add your backend GitHub repository link here.
 - Axios
 - React Router
 
-### Backend Integration
+### Backend and Integrations
 
 - Spring Boot
 - REST APIs
 - JWT-based authentication
-- MySQL / Amazon RDS
+- MySQL hosted on Amazon RDS
 - Razorpay Payment Gateway
 - Email Service
 - AI Chat API
 
-### Deployment
+### Deployment and Infrastructure
 
 - AWS EC2
 - Nginx
@@ -73,7 +74,8 @@ Add your backend GitHub repository link here.
 ```text
                          User Browser
                               |
-                              | HTTPS
+                            HTTPS
+                              |
                               v
                     Cloudflare Quick Tunnel
                               |
@@ -81,16 +83,20 @@ Add your backend GitHub repository link here.
                          Nginx :80
                               |
               +---------------+----------------+
-              |               |                |
-              v               v                v
-       React Frontend   Ecommerce API     Payment API
-       /var/www/cartflow    :8086             :8087
-                              |                |
-                              v                v
-                         Amazon RDS       Razorpay API
-                              |
-                              v
-                       Email / AI Services
+              |                                |
+              v                                v
+       React Frontend                    Spring Boot APIs
+       /var/www/cartflow                 |            |
+                                         |            |
+                                         v            v
+                                  Ecommerce API   Payment API
+                                     :8086            :8087
+                                         |            |
+                                         v            v
+                                    Amazon RDS    Razorpay API
+                                         |
+                                         v
+                                  Email / AI APIs
 ```
 
 ---
@@ -125,19 +131,23 @@ CartFlow-Frontend/
 └── README.md
 ```
 
+> The exact folder structure may vary as the project evolves.
+
 ---
 
 ## API Configuration
 
-The frontend communicates with the backend through relative API paths.
+The frontend communicates with the backend through relative API paths. This allows the application to work behind the Nginx reverse proxy without hardcoding the EC2 public IP address in the frontend source code.
 
 ### Ecommerce API
+
+The ecommerce backend is accessed through the `/api` path.
 
 ```javascript
 const API_URL = "/api";
 ```
 
-Examples:
+Example API routes:
 
 ```text
 /api/products
@@ -147,6 +157,8 @@ Examples:
 ```
 
 ### AI API
+
+The AI chatbot uses the following API path:
 
 ```javascript
 const API_URL = "/api/ai/chat/completions";
@@ -160,7 +172,7 @@ The payment service is accessed through the Nginx reverse proxy:
 /payment-api/
 ```
 
-Using relative API paths allows the same frontend build to work behind the deployed Nginx server without hardcoding the EC2 IP address in the frontend code.
+Nginx forwards payment requests to the Spring Boot payment service running internally on port `8087`.
 
 ---
 
@@ -168,7 +180,7 @@ Using relative API paths allows the same frontend build to work behind the deplo
 
 ### Prerequisites
 
-Make sure the following are installed:
+Make sure the following tools are installed:
 
 - Node.js
 - npm
@@ -180,7 +192,7 @@ Make sure the following are installed:
 git clone https://github.com/jsanothernpc/cartflow-frontend.git
 ```
 
-Move into the project directory:
+### Navigate to the Project Directory
 
 ```bash
 cd cartflow-frontend
@@ -226,16 +238,17 @@ npm run preview
 
 ## Deployment
 
-The frontend is deployed on an AWS EC2 instance.
+The frontend is deployed on an AWS EC2 instance and served using Nginx.
 
 ### Deployment Process
 
-1. Build the React application locally.
-2. Generate the production files using Vite.
-3. Upload the contents of the `dist` directory to the EC2 instance.
-4. Serve the frontend using Nginx.
-5. Configure Nginx as a reverse proxy for the backend services.
-6. Access the application through the Cloudflare HTTPS tunnel.
+1. Install project dependencies.
+2. Build the React application using Vite.
+3. Generate the production files in the `dist` directory.
+4. Upload the production files to the EC2 instance.
+5. Serve the frontend using Nginx.
+6. Configure Nginx as a reverse proxy for the backend services.
+7. Use Cloudflare Quick Tunnel to provide HTTPS access to the application.
 
 ### Production Frontend Directory
 
@@ -248,19 +261,21 @@ The frontend is deployed on an AWS EC2 instance.
 Nginx is responsible for:
 
 - Serving the React static files
-- Forwarding ecommerce API requests to port `8086`
-- Forwarding payment API requests to port `8087`
+- Forwarding ecommerce API requests to the ecommerce backend
+- Forwarding payment API requests to the payment backend
 - Supporting React client-side routing
-- Acting as the entry point for the deployed application
+- Acting as the main entry point for the deployed application
 
 ---
 
 ## Security Notes
 
-- Private API keys and credentials should not be committed to GitHub.
+- Private API keys and credentials must not be committed to GitHub.
 - Environment files containing secrets should be excluded using `.gitignore`.
-- Backend services are accessed through Nginx instead of exposing their ports publicly.
-- Database credentials and payment secrets are stored on the server and are not included in the frontend source code.
+- Database credentials should be stored securely on the server.
+- Razorpay secret keys should never be exposed in frontend code.
+- Backend services are accessed through Nginx rather than being publicly exposed.
+- AWS access keys and private SSH keys must not be committed to the repository.
 
 ---
 
@@ -268,12 +283,13 @@ Nginx is responsible for:
 
 - Add product reviews and ratings
 - Add wishlist functionality
-- Add order history page
+- Add order history
 - Add product pagination
 - Add automated frontend deployment using GitHub Actions
 - Configure a permanent custom domain
-- Add automated testing
+- Add automated frontend testing
 - Improve UI/UX and accessibility
+- Add advanced product filtering and sorting
 
 ---
 
@@ -281,4 +297,5 @@ Nginx is responsible for:
 
 **Ayushman Pathak**
 
-GitHub: [@jsanothernpc](https://github.com/jsanothernpc)
+GitHub:  
+https://github.com/jsanothernpc
