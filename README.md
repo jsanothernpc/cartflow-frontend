@@ -7,7 +7,7 @@ This repository contains the **React frontend** of the CartFlow application.
 ## Live Demo
 
 🌐 **Live Application:**  
-https://avenue-von-blond-homeless.trycloudflare.com
+https://unlock-wrap-drill-belle.trycloudflare.com/
 
 > The live demo is hosted using a Cloudflare Quick Tunnel. The URL may change if the tunnel is recreated or restarted.
 
