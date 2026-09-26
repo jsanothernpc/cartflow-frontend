@@ -7,7 +7,7 @@ This repository contains the **React frontend** of the CartFlow application.
 ## Live Demo
 
 🌐 **Live Application:**  
-https://unlock-wrap-drill-belle.trycloudflare.com/
+https://sealed-exhibit-andy-habits.trycloudflare.com/
 
 > The live demo is hosted using a Cloudflare Quick Tunnel. The URL may change if the tunnel is recreated or restarted.
 
